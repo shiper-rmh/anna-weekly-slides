@@ -1,0 +1,17 @@
+{
+  "schema": 4,
+  "required_executas": [],
+  "tags": ["productivity", "presentations"],
+  "ui": {
+    "bundle": { "format": "static-spa", "entry": "index.html" },
+    "views": [
+      {
+        "name": "main",
+        "title": "汇报工坊",
+        "default": true,
+        "default_size": { "w": 1280, "h": 800 },
+        "min_size": { "w": 360, "h": 520 }
+      }
+    ]
+  }
+}

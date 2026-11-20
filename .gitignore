@@ -1,0 +1,7 @@
+node_modules/
+bundle/
+offline/
+.anna/
+.playwright-cli/
+.env
+.env.*

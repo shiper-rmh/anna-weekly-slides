@@ -1,0 +1,27 @@
+{
+  "name": "anna-weekly-slides",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "build:offline": "node scripts/build-offline.js",
+    "validate": "anna-app validate",
+    "preview": "vite preview --host 127.0.0.1",
+    "anna:dev": "anna-app dev"
+  },
+  "dependencies": {
+    "jszip": "3.10.2",
+    "pptxgenjs": "4.0.1"
+  },
+  "devDependencies": {
+    "@anna-ai/cli": "0.1.64",
+    "vite": "8.3.8"
+  },
+  "overrides": {
+    "pptxgenjs": {
+      "image-size": "2.1.0"
+    }
+  }
+}
