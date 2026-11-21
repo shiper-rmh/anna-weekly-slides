@@ -47,5 +47,9 @@ npx anna-app login --host https://staging.anna.partners
 
 应用名称为「汇报工坊 · 周报转 PPT」。应用 slug 为 `weekly-slides`，在商店中带开发者的 `@handle` 前缀。
 
+### Staging 实测
+
+2026 年 11 月 21 日，通过 Anna CLI 开发环境连接 staging 的模型和应用存储，使用设备监控周报生成 5 页演示稿。对第 2 页标题和第 5 页内容提交一批修改，确认应用后可从历史恢复。导出的 PPTX 在 PowerPoint 中打开，包含两处修改。生成消耗约 0.08966 额度，批量改稿消耗约 0.08879 额度。
+
 - [Anna 开发文档](https://staging.anna.partners/developers)
 - [Anna 发布文档](https://staging.anna.partners/developers/apps/app-publish.md)
