@@ -122,19 +122,21 @@
   </dialog>
   <dialog id="template-dialog" aria-labelledby="template-title">
     <div class="dialog-head">
-      <div><h2 id="template-title">演示模板</h2><p>从已有 PPTX 提取主题配色和字体，应用到预览及导出。</p></div>
+      <div><h2 id="template-title">演示模板</h2><p>从 PowerPoint 文件提取配色、纯色背景和字体。</p></div>
       <button class="icon-button close-dialog" type="button" aria-label="关闭演示模板"><svg class="icon"><use href="#i-close"/></svg></button>
     </div>
     <div class="template-preview">
       <div id="template-colors" class="template-colors" aria-hidden="true"></div>
       <div><strong id="template-name"></strong><p id="template-font"></p></div>
     </div>
-    <p class="template-help">按汇报内容自动排版。可用 PowerPoint 或 WPS 将常用模板另存为 .pptx 后导入。</p>
-    <input type="file" accept=".pptx" class="sr-only" id="template-file" tabindex="-1">
+    <p class="template-help">支持 .pptx 和 .potx。汇报内容使用汇报工坊的版式排版。</p>
     <p class="dialog-feedback" id="template-feedback" role="status" hidden></p>
     <div class="dialog-actions">
       <button type="button" class="button outline" id="reset-template">恢复默认</button>
-      <button type="button" class="button primary" id="import-template"><svg class="icon"><use href="#i-plus"/></svg>上传 PPTX 模板</button>
+      <label class="button outline template-upload"><svg class="icon"><use href="#i-plus"/></svg>选择文件
+        <input type="file" accept=".pptx,.potx" id="template-file" aria-label="选择模板文件">
+      </label>
+      <button type="button" class="button primary" id="apply-template" disabled>应用模板</button>
     </div>
   </dialog>
   <dialog id="editor" aria-labelledby="edit-title">

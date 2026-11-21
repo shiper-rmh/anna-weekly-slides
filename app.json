@@ -2,7 +2,7 @@
   "name": "汇报工坊 · 周报转 PPT",
   "slug": "weekly-slides",
   "tagline": "周报生成 PPT，跨页批注一次改稿",
-  "description": "为组会汇报和团队周会制作可编辑的 PowerPoint。粘贴周报后，Anna AI 生成逐页初稿。在预览中划选文字或给整页留意见，跨页批注一次提交。对照修改前后，可以逐条或统一应用。支持从 PPTX 提取主题配色和字体，自动保存历史汇报，并导出可编辑的 PPTX。",
+  "description": "为组会汇报和团队周会制作可编辑的 PowerPoint。粘贴周报后，Anna AI 生成逐页初稿。在预览中划选文字或给整页留意见，跨页批注一次提交。对照修改前后，可以逐条或统一应用。支持从 PPTX 和 POTX 提取配色、纯色背景和字体，自动保存历史汇报，并导出可编辑的 PPTX。",
   "category": "productivity",
   "homepage_url": "https://github.com/shiper-rmh/anna-weekly-slides",
   "screenshots": [

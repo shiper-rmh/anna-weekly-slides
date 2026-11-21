@@ -11,6 +11,9 @@ const source = byId('source');
 const sourceDialog = byId('source-dialog');
 const projectsDialog = byId('projects-dialog');
 const templateDialog = byId('template-dialog');
+const templateFile = byId('template-file');
+let pendingTemplate = null;
+let templateRead = 0;
 const editor = byId('editor');
 const commentForm = byId('comment-form');
 const commentInput = byId('comment-text');
@@ -618,10 +621,12 @@ async function openProjects() {
 }
 
 function renderTemplateDialog() {
-  const palette = slidePalette(deck.template);
-  byId('template-name').textContent = deck.template?.name ?? '默认主题';
+  const template = pendingTemplate ?? deck.template;
+  const palette = slidePalette(template);
+  byId('template-name').textContent = template?.name ?? '默认主题';
   byId('template-font').textContent = `主题字体 ${palette.font}`;
   byId('reset-template').disabled = !deck.template;
+  byId('apply-template').disabled = !pendingTemplate;
   byId('template-colors').replaceChildren(...[palette.dark, palette.rail, palette.card, palette.paper].map((value) => {
     const chip = node('span', 'template-color');
     chip.style.backgroundColor = `#${value}`;
@@ -692,36 +697,52 @@ function startProject() {
 byId('new-project').addEventListener('click', startProject);
 byId('start-project').addEventListener('click', startProject);
 byId('open-template').addEventListener('click', () => {
+  pendingTemplate = null;
   renderTemplateDialog();
   feedback(byId('template-feedback'));
   templateDialog.showModal();
 });
-byId('import-template').addEventListener('click', () => byId('template-file').click());
-byId('template-file').addEventListener('change', async (event) => {
-  const input = event.target;
-  const file = input.files[0];
-  const control = byId('import-template');
+templateFile.addEventListener('change', async () => {
+  const file = templateFile.files[0];
   if (!file) return;
-  const sourceDeck = deck;
-  control.disabled = true;
+  const read = ++templateRead;
+  pendingTemplate = null;
+  templateFile.disabled = true;
+  renderTemplateDialog();
   byId('reset-template').disabled = true;
+  feedback(byId('template-feedback'), '正在读取模板…');
   try {
     const template = await readPptxTemplate(file);
-    if (deck !== sourceDeck) return;
-    deck = { ...deck, template };
-    saveCurrent();
-    renderDeck();
-    renderTemplateDialog();
-    feedback(byId('template-feedback'), '已应用模板风格。关闭窗口即可查看预览。');
+    if (read !== templateRead || !templateDialog.open) return;
+    pendingTemplate = template;
+    feedback(byId('template-feedback'), '模板已读取。点击「应用模板」使用这套样式。');
   } catch (error) {
-    feedback(byId('template-feedback'), reportError(error), true);
+    if (read === templateRead && templateDialog.open) feedback(byId('template-feedback'), reportError(error), true);
   } finally {
-    input.value = '';
-    control.disabled = false;
-    byId('reset-template').disabled = !deck.template;
+    if (read === templateRead && templateDialog.open) {
+      templateFile.value = '';
+      templateFile.disabled = false;
+      renderTemplateDialog();
+      if (pendingTemplate) byId('apply-template').focus();
+    }
   }
 });
+templateDialog.addEventListener('close', () => {
+  templateRead++;
+  pendingTemplate = null;
+  templateFile.value = '';
+  templateFile.disabled = false;
+});
+byId('apply-template').addEventListener('click', () => {
+  if (!pendingTemplate) return;
+  deck = { ...deck, template: pendingTemplate };
+  saveCurrent();
+  renderDeck();
+  templateDialog.close();
+  toast('模板已应用到预览和 PPTX 导出。');
+});
 byId('reset-template').addEventListener('click', () => {
+  pendingTemplate = null;
   deck = { ...deck, template: null };
   saveCurrent();
   renderDeck();

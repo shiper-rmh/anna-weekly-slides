@@ -212,6 +212,10 @@ dialog textarea, dialog select, dialog input { margin-top: 5px; }
 .template-colors { display: flex; gap: 3px; flex: none; }
 .template-color { width: 19px; height: 28px; border: 1px solid #322d4820; border-radius: 5px; }
 .template-help { margin-top: 11px; }
+.template-upload { position: relative; cursor: pointer; }
+.template-upload input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.template-upload:focus-within { outline: 2px solid var(--purple); outline-offset: 2px; }
+.template-upload:has(input:disabled) { opacity: .5; }
 @media (min-width: 1250px) {
   .thumbnails { gap: 6px; padding-inline: 15px; }
   .thumb { padding: 5px; }
